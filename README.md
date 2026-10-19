@@ -1,25 +1,43 @@
 # expense
 
-用于 Codex 的项目报销材料整理 Skill：统一发票与配套材料的文件名，并依据随附 Word 母版生成报销内容简要说明。
+面向 Agent 的项目报销材料整理 Skill：统一发票与配套材料的文件名，并依据随附 Word 母版生成报销内容简要说明。
 
-## 安装
+## 项目级目录
 
-将仓库克隆到 Codex 的 skills 目录：
-
-```bash
-git clone https://github.com/UEM-YJLAB/expense.git "${CODEX_HOME:-$HOME/.codex}/skills/expense"
-```
-
-## 使用
-
-在 Codex 中调用：
+Skill 存放在项目的 `.agents/skills/expense/` 中：
 
 ```text
-$expense
-整理指定目录中的报销材料。
+项目根目录/
+├─ README.md
+└─ .agents/
+   └─ skills/
+      └─ expense/
+         ├─ SKILL.md
+         ├─ agents/
+         ├─ assets/
+         └─ references/
 ```
 
-使用时提供姓名、项目编号、项目名称和材料所在目录；多人报销时同时确认发票的人员归属。Skill 会先整理材料，集中确认待补材料和用途，再生成正式 Word 说明。
+将本仓库的 `.agents/skills/expense/` 完整复制到目标项目的同名目录，并保留内部相对路径。
+
+## Agent 使用入口
+
+请先读取 [SKILL.md](.agents/skills/expense/SKILL.md)，再按其中的资源说明加载整理规则与 Word 填写指引。所有资源路径均相对于 Skill 所在目录。
+
+在目标项目中向 Agent 提供以下指令：
+
+```text
+请读取本项目的 .agents/skills/expense/SKILL.md，
+按其中的流程整理我提供的报销材料。
+开始前请先收集我的姓名、项目编号、项目名称和材料所在目录；
+多人报销时，请同时确认各张发票的人员归属。
+```
+
+支持命名调用的 Agent 环境也可使用 `$expense`。自动发现方式以所用 Agent 的项目级配置为准。
+
+## 所需能力
+
+Agent 需要能够读取本地 PDF 与图片、整理文件、编辑 DOCX，并生成文档预览以逐页检查。环境提供 documents、PDF 等技能时可直接复用；工具和运行时按实际环境选择。
 
 ## 整理规则
 
@@ -29,7 +47,7 @@ $expense
 - 实物特殊采购的“无京东自营”原因由用户提供。
 - 更新说明前，将旧版存入 `历史备份（旧版本，忽略）`。
 
-上述要求来自本 Skill 的既定工作流程，具体项目要求可在使用时明确调整。完整规则见 [整理规则](references/整理规则.md)。
+上述要求来自本 Skill 的既定工作流程，具体项目要求可在使用时明确调整。完整规则见 [整理规则](.agents/skills/expense/references/整理规则.md)。
 
 ## 输出结构
 
@@ -46,12 +64,9 @@ $expense
 
 ## 随附资源
 
-- [Skill 入口](SKILL.md)
-- [信息采集表](assets/信息采集表.md)
-- [Word 母版](assets/报销内容简要说明.docx)
-- [Word 填写与更新](references/Word填写与更新.md)
+- [信息采集表](.agents/skills/expense/assets/信息采集表.md)
+- [Word 母版](.agents/skills/expense/assets/报销内容简要说明.docx)
+- [Word 填写与更新](.agents/skills/expense/references/Word填写与更新.md)
 
-生成 Word 说明时使用环境中可用的 documents 技能与文档运行时；读取发票时使用环境中可用的 PDF 能力。
-
-![Word 母版预览](assets/母版预览.png)
+![Word 母版预览](.agents/skills/expense/assets/母版预览.png)
 
