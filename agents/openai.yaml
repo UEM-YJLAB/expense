@@ -1,0 +1,4 @@
+interface:
+  display_name: "发票整理与报销说明"
+  short_description: "整理发票与配套材料，按姓名建立工作区并统一命名，生成项目报销说明"
+  default_prompt: "使用 $expense 整理本次报销材料，请先询问我的姓名、项目编号和项目名称。"
